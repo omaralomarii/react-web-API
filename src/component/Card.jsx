@@ -27,6 +27,7 @@ function setFavMovie(movieID) {
 }
 export default function Card({ movie }) {
   const naviget = useNavigate();
+
   return (
     <MDBCard className="w-25" onClick={(e) => naviget(`/movie/${movie.id}`)}>
       <MDBCardImage
@@ -34,19 +35,14 @@ export default function Card({ movie }) {
         position="top"
         alt="..."
       />
-      <MDBCardBody>
+      <MDBCardBody className="">
         <MDBCardTitle>
           <b>{movie.title}</b>
         </MDBCardTitle>
         <MDBCardText>Rating : {movie.vote_average}</MDBCardText>
-        <MdFavorite
-          style={{ color: "red", fontSize: "24px" }}
-          onClick={(e) => {
-            console.log(setFavMovie(movie.id));
-          }}
-        >
-          Add to Fav
-        </MdFavorite>
+        <MDBBtn className="mt-2" style={{ background: "black" }}>
+          MORE Details
+        </MDBBtn>
       </MDBCardBody>
     </MDBCard>
   );

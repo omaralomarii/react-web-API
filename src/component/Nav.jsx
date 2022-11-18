@@ -34,15 +34,6 @@ function NavBar({ handelSearch, handelSubmit }) {
       });
   };
 
-  useEffect(() => {
-    let favMovies = JSON.parse(localStorage.getItem("fav"));
-    if (favMovies) {
-      favMovies.map((fav) => {
-        return fetchFavMovies(fav);
-      });
-    }
-  }, []);
-
   return (
     <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: "black" }}>
       <Container>
@@ -103,14 +94,6 @@ function NavBar({ handelSearch, handelSubmit }) {
                 Logout
               </NavLink>
             )}
-            <NavLink
-              className="nav-link"
-              variant="primary"
-              style={{ color: "white" }}
-              onClick={handleShow}
-            >
-              Fav
-            </NavLink>
           </Nav>
           <Nav>
             <Form className="d-flex" autoComplete="off" onSubmit={handelSubmit}>

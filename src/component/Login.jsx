@@ -60,7 +60,7 @@ export default function SignIn() {
           authState: getDataFromLocalStorage(),
         })
       ) {
-        Navigate("/");
+        return Navigate("/");
       }
     }
   };

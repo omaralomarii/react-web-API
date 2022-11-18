@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { json, useParams } from "react-router-dom";
 
 import {
   MDBCardTitle,
@@ -12,13 +12,31 @@ import {
   MDBContainer,
   MDBIcon,
 } from "mdb-react-ui-kit";
-
 import { Badge } from "react-bootstrap";
 const API_IMG = "https://image.tmdb.org/t/p/w500/";
-
+function getAllFavMovie() {
+  return JSON.parse(localStorage.getItem("fav"));
+}
 export const MovieDetails = () => {
   const param = useParams();
   const [movie, setMovie] = useState();
+  const [fav, setFav] = useState(true);
+
+  let favorite = getAllFavMovie();
+  function addToFav(id) {
+    favorite.push(id);
+    console.log(favorite);
+    localStorage.setItem("fav", JSON.stringify(favorite));
+    setFav(false);
+  }
+
+  function removeFav(id) {
+    delete favorite[favorite.indexOf(id)];
+    console.log(favorite);
+    localStorage.setItem("fav", JSON.stringify(favorite));
+    setFav(true);
+  }
+
   const fetchFavMovies = (fav) => {
     axios
       .get(
@@ -27,6 +45,9 @@ export const MovieDetails = () => {
       .then((res) => {
         setMovie(res.data);
         console.log(res.data);
+        console.log(favorite);
+        console.log(res.data.id);
+        console.log(favorite.includes(res.data.id));
       })
       .catch((err) => {
         console.log(err);
@@ -58,7 +79,7 @@ export const MovieDetails = () => {
               <MDBCardText>
                 <div className="mb-4 ">
                   <h4>{movie.title}</h4>
-                  <h5 className="mb-3 ">budget : {movie.budget} $ </h5>
+                  <h5 className="mb-3 text-bold">budget : {movie.budget} $ </h5>
                   <p className="mb-3">
                     genres :
                     {movie.genres.map((g) => {
@@ -81,13 +102,23 @@ export const MovieDetails = () => {
             </MDBCardBody>
           </MDBCol>
           <MDBCol md="1">
-            <MDBIcon
-              far
-              icon="heart"
-              className="h1"
-              style={{ cursor: "pointer" }}
-              onClick={() => {}}
-            />
+            {favorite.includes(movie.id) ? (
+              <MDBIcon
+                fas
+                icon="heart"
+                className="h1"
+                style={{ cursor: "pointer" }}
+                onClick={(e) => removeFav(movie.id)}
+              />
+            ) : (
+              <MDBIcon
+                far
+                icon="heart"
+                className="h1"
+                style={{ cursor: "pointer" }}
+                onClick={(e) => addToFav(movie.id)}
+              />
+            )}
           </MDBCol>
         </MDBRow>
       </div>

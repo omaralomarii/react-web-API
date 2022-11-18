@@ -16,6 +16,8 @@ import { Spinner } from "react-bootstrap";
 import { AuthProvider } from "react-auth-kit";
 import { useSignIn } from "react-auth-kit";
 import { MovieDetails } from "./component/MovieDetails";
+import FavMovie from "./component/FavMovie";
+import { FavoriteMovies } from "./component/FavoriteMovies";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -85,6 +87,7 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="register" element={<SignInSide />} />
           <Route path="login" element={<Signin />} />
+          <Route path="fav" element={<FavoriteMovies />} />
           <Route path="movie/:id" element={<MovieDetails />} />
         </Routes>
 
