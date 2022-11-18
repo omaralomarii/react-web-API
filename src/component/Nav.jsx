@@ -1,4 +1,7 @@
-import { Button, Form, FormControl } from "react-bootstrap";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useIsAuthenticated, useSignOut } from "react-auth-kit";
+import { Button, Form, FormControl, Modal } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -6,13 +9,50 @@ import { NavLink } from "react-router-dom";
 import logo from "./logo.png";
 
 function NavBar({ handelSearch, handelSubmit }) {
+  const isAuth = useIsAuthenticated();
+  const signOut = useSignOut();
+  const [show, setShow] = useState(false);
+  const [favMovie, setFavMovie] = useState([]);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  let arr = Array();
+  const fetchFavMovies = (fav) => {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/movie/${fav}?api_key=04c35731a5ee918f014970082a0088b1&language=en-US`
+      )
+      .then((res) => {
+        arr.push(res.data);
+        setFavMovie(arr);
+
+        console.log(arr);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    let favMovies = JSON.parse(localStorage.getItem("fav"));
+    if (favMovies) {
+      favMovies.map((fav) => {
+        return fetchFavMovies(fav);
+      });
+    }
+  }, []);
+
   return (
     <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: "black" }}>
       <Container>
         <Navbar.Brand href="#home">
           <img src={logo} style={{ width: "50px" }} />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav  " />
+        <Navbar.Toggle
+          style={{ backgroundColor: "white" }}
+          aria-controls="responsive-navbar-nav  "
+        />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <NavLink className="nav-link " to="/" style={{ color: "white" }}>
@@ -33,19 +73,43 @@ function NavBar({ handelSearch, handelSubmit }) {
             >
               About
             </NavLink>
+            {!isAuth() ? (
+              <>
+                <NavLink
+                  className="nav-link "
+                  to="/Login"
+                  style={{ color: "white" }}
+                >
+                  Login
+                </NavLink>
+                <NavLink
+                  className="nav-link "
+                  to="/Register"
+                  style={{ color: "white" }}
+                >
+                  Register
+                </NavLink>
+              </>
+            ) : (
+              <NavLink
+                className="nav-link "
+                // to="/Login"
+                style={{ color: "white" }}
+                onClick={(e) => {
+                  signOut();
+                  console.log(signOut());
+                }}
+              >
+                Logout
+              </NavLink>
+            )}
             <NavLink
-              className="nav-link "
-              to="/Login"
+              className="nav-link"
+              variant="primary"
               style={{ color: "white" }}
+              onClick={handleShow}
             >
-              Login
-            </NavLink>
-            <NavLink
-              className="nav-link "
-              to="/Register"
-              style={{ color: "white" }}
-            >
-              Register
+              Fav
             </NavLink>
           </Nav>
           <Nav>
@@ -67,6 +131,21 @@ function NavBar({ handelSearch, handelSubmit }) {
           </Nav>
         </Navbar.Collapse>
       </Container>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>fav movie</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {favMovie.map((m) => (
+            <h6>{m.title}</h6>
+          ))}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Navbar>
   );
 }

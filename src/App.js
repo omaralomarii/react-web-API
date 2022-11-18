@@ -13,6 +13,9 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
+import { AuthProvider } from "react-auth-kit";
+import { useSignIn } from "react-auth-kit";
+import { MovieDetails } from "./component/MovieDetails";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -70,20 +73,23 @@ function App() {
   }
   return (
     <>
-      <NavBar handelSearch={handelSearch} handelSubmit={handelSubmit} />
+      <AuthProvider authType={"cookie"} authName={"_auth"}>
+        <NavBar handelSearch={handelSearch} handelSubmit={handelSubmit} />
 
-      <Routes>
-        <Route
-          path="/"
-          element={<Home movies={movies} handlePage={handlePage} />}
-        />
-        <Route path="about" element={<About />} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="register" element={<SignInSide />} />
-        <Route path="login" element={<Signin />} />
-      </Routes>
+        <Routes>
+          <Route
+            path="/"
+            element={<Home movies={movies} handlePage={handlePage} />}
+          />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="register" element={<SignInSide />} />
+          <Route path="login" element={<Signin />} />
+          <Route path="movie/:id" element={<MovieDetails />} />
+        </Routes>
 
-      <Footer />
+        <Footer />
+      </AuthProvider>
     </>
   );
 }
