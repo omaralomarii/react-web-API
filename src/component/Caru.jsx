@@ -3,7 +3,7 @@ import Carousel from "react-bootstrap/Carousel";
 function Slider() {
   return (
     <Carousel>
-      <Carousel.Item interval={1000} style={{ height: "70vh" }}>
+      <Carousel.Item interval={1000} style={{ height: "55vh" }}>
         <img
           className="d-block w-100 "
           src="https://wallpaperaccess.com/full/4839666.jpg"
@@ -14,7 +14,7 @@ function Slider() {
           <p></p>
         </Carousel.Caption>
       </Carousel.Item>
-      <Carousel.Item interval={500} style={{ height: "70vh" }}>
+      <Carousel.Item interval={500} style={{ height: "55vh" }}>
         <img
           className="d-block w-100"
           src="https://wallpaperaccess.com/full/3658600.jpg"
@@ -25,7 +25,7 @@ function Slider() {
           <p>.</p>
         </Carousel.Caption>
       </Carousel.Item>
-      <Carousel.Item style={{ height: "70vh" }}>
+      <Carousel.Item style={{ height: "55vh" }}>
         <img
           className="d-block w-100"
           src="https://wallpaperaccess.com/full/3658975.jpg"

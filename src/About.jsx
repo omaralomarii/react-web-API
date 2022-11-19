@@ -42,12 +42,12 @@ const About = () => {
       <br />
       <br />
 
-      <div class="section section-padding pb-0 mt5 ">
+      <div class="section section-padding pb-0  mb-4">
         <div class="">
           <div class="row learts-mb-n30">
             <div class=" col-md-6 col-12 align-self-center learts-mb-30">
               <img
-                src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1156&q=80"
+                src="https://wallpaperaccess.com/full/3658597.jpg"
                 alt=""
                 class="img-fluid"
               />

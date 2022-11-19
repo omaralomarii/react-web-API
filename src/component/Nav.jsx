@@ -7,6 +7,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
 import logo from "./logo.png";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 function NavBar({ handelSearch, handelSubmit }) {
   const isAuth = useIsAuthenticated();
@@ -66,20 +67,27 @@ function NavBar({ handelSearch, handelSubmit }) {
             </NavLink>
             {!isAuth() ? (
               <>
-                <NavLink
-                  className="nav-link "
-                  to="/Login"
-                  style={{ color: "white" }}
+                <NavDropdown
+                  title={<span className="text-light my-auto">Account </span>}
+                  id="collasible-nav-dropdown"
                 >
-                  Login
-                </NavLink>
-                <NavLink
-                  className="nav-link "
-                  to="/Register"
-                  style={{ color: "white" }}
-                >
-                  Register
-                </NavLink>
+                  <NavDropdown.Item style={{ backgroundColor: "black" }}>
+                    <NavLink
+                      className="nav-link "
+                      to="/Login"
+                      style={{ color: "white" }}
+                    >
+                      LogIn
+                    </NavLink>
+                    <NavLink
+                      className="nav-link "
+                      to="/Register"
+                      style={{ color: "white" }}
+                    >
+                      SignUp
+                    </NavLink>
+                  </NavDropdown.Item>
+                </NavDropdown>
               </>
             ) : (
               <NavLink

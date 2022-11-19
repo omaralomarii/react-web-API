@@ -42,6 +42,7 @@ function App() {
         console.log(err);
       });
   };
+
   const fetchSearchMovies = () => {
     axios
       .get(API_SEARCH)

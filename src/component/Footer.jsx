@@ -22,14 +22,12 @@ export const Footer = () => {
               className="d-flex align-items-center p-0 text-light text-center"
             >
               <img alt="" src="src\aaa.jpg" width="30px" />
-              <div className="text-center ml-3 h5 font-weight-bold w-100">
-                Shawshank
-              </div>
+              <div className="text-center ml-3 h5 font-weight-bold w-100"></div>
             </a>
-            <p className="my-1 text-center " style={{ width: "500px" }}>
+            {/* <p className="my-1 text-center " style={{ width: "500px" }}>
               We are creating High Quality Resources and tools to Aid developers
               during the developement of their projects
-            </p>
+            </p> */}
             <CDBBox
               display="flex"
               className="mt-3 w-100 justify-content-center"
